@@ -1,0 +1,18 @@
+/* Tailwind v4 — globals.css এ `@import "tailwindcss";` এর নিচে এটা import করুন:
+   @import "../components/nobokuri/theme.css";   (path আপনার folder অনুযায়ী ঠিক করুন) */
+@theme {
+  --color-ink: #14213d;
+  --color-mut: #4c5a73;
+  --color-sky: #dff1ff;
+  --color-sun: #ffc21a;
+  --color-coral: #ff5a5f;
+  --color-mint: #2bb8a0;
+  --color-paper: #fffdf7;
+
+  /* হার্ড শ্যাডো (sticker-এর মতো দেখতে) */
+  --shadow-hard-sm: 3px 3px 0 var(--color-ink);
+  --shadow-hard: 4px 4px 0 var(--color-ink);
+  --shadow-hard-md: 5px 5px 0 var(--color-ink);
+  --shadow-hard-lg: 6px 6px 0 var(--color-ink);
+  --shadow-hard-xl: 8px 8px 0 var(--color-ink);
+}
