@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { track } from "./pixel";
 import { baloo } from "./fonts";
@@ -19,6 +20,7 @@ interface Pkg {
   name: string;
   price: number;
   badge?: string;
+  image: string;
   items: string[];
 }
 
@@ -26,14 +28,16 @@ const PACKAGES: Pkg[] = [
   {
     id: "single",
     name: "শুধু বই",
-    price: 890,
+    price: 790,
+    image: "/Only_book.jpeg",
     items: ["নব কুঁড়ি ইন্টেলিজেন্স টকিং বুক", "স্মার্ট পেন", "চার্জিং ক্যাবল"],
   },
   {
     id: "combo",
     name: "কম্বো প্যাকেজ",
-    price: 1090,
+    price: 990,
     badge: "সেরা অফার",
+    image: "/Nobokuri Kids Learning Combo Package.png",
     items: [
       "৬২ পেজের টকিং বুক",
       "স্মার্ট পেন — বইয়ের একপাশে লেখা যায়, মুছেও ফেলা যায়",
@@ -44,11 +48,11 @@ const PACKAGES: Pkg[] = [
 ];
 
 /* ───────────── Helpers ───────────── */
-const BN = "০১২translateX৫৬৭৮৯";
-const toBn = (n: number | string) => String(n).replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[+d]);
+const BN = "০১২৩৪৫৬৭৮৯";
+const toBn = (n: number | string) => String(n).replace(/\d/g, (d) => BN[+d]);
 const normalizePhone = (v: string) =>
   v
-    .replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d)))
+    .replace(/[০-৯]/g, (d) => String(BN.indexOf(d)))
     .replace(/[\s-]/g, "")
     .replace(/^(\+?88)/, "");
 
@@ -143,7 +147,7 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                 type="button"
                 role="radio"
                 aria-checked={active}
-                className="relative cursor-pointer rounded-[18px] border-2 border-slate-900 bg-white p-[22px] text-left shadow-[4px_4px_0px_#0f172a] focus-visible:outline-[3px] focus-visible:outline-offset-[10px] focus-visible:outline-rose-500"
+                className="relative cursor-pointer rounded-[18px] border-2 border-slate-900 bg-white p-[22px] text-left shadow-[4px_4px_0px_#0f172a] focus-visible:outline-[3px] focus-visible:outline-offset-[10px] focus-visible:outline-rose-500 flex flex-col justify-between"
                 onClick={() => setPkgId(p.id)}
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.98 }}
@@ -156,24 +160,37 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                   />
                 )}
                 
-                {/* প্যাকেজের নাম এবং সেরা অফার ট্যাগ (সঠিক ভিজিবিলিটি সহ) */}
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className={`${baloo.className} text-[22px] leading-tight font-extrabold text-slate-900`}>{p.name}</h3>
-                  {p.badge && (
-                    <span className="inline-block rounded-lg border-2 border-slate-900 bg-amber-400 px-3 py-1 text-xs font-black tracking-wide text-slate-900 shadow-[2px_2px_0px_#0f172a]">
-                      🔥 {p.badge}
-                    </span>
-                  )}
-                </div>
+                <div>
+                  {/* প্যাকেজের নাম এবং সেরা অফার ট্যাগ */}
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className={`${baloo.className} text-[22px] leading-tight font-extrabold text-slate-900`}>{p.name}</h3>
+                    {p.badge && (
+                      <span className="inline-block rounded-lg border-2 border-slate-900 bg-amber-400 px-3 py-1 text-xs font-black tracking-wide text-slate-900 shadow-[2px_2px_0px_#0f172a]">
+                        🔥 {p.badge}
+                      </span>
+                    )}
+                  </div>
 
-                <div className={`${baloo.className} mt-1 text-[40px] leading-tight font-extrabold text-rose-600`}>৳{toBn(p.price)}/-</div>
-                <ul className="mt-2.5 grid gap-1.5">
-                  {p.items.map((it) => (
-                    <li key={it} className="flex gap-2 text-slate-800 before:font-extrabold before:text-emerald-600 before:content-['✓']">
-                      {it}
-                    </li>
-                  ))}
-                </ul>
+                  <div className={`${baloo.className} mt-1 text-[40px] leading-tight font-extrabold text-rose-600`}>৳{toBn(p.price)}/-</div>
+                  
+                  {/* প্যাকেজের ছবি */}
+                  <div className="my-4 relative h-48 w-full overflow-hidden rounded-xl border-2 border-slate-900 bg-slate-100">
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      className="object-contain p-2"
+                    />
+                  </div>
+
+                  <ul className="mt-2.5 grid gap-1.5">
+                    {p.items.map((it) => (
+                      <li key={it} className="flex gap-2 text-slate-800 before:font-extrabold before:text-emerald-600 before:content-['✓']">
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.button>
             );
           })}
@@ -281,7 +298,7 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
               </motion.b>
             </div>
 
-            {/* দৃশ্যমান এবং আকর্ষণীয় সাবমিট বাটন */}
+            {/* দৃশ্যমান এবং আকর্ষণীয় সাবমিট বাটন */}
             <button
               className="mt-[18px] flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-slate-900 bg-rose-600 px-6 py-4 text-lg font-extrabold text-white shadow-[4px_4px_0px_#0f172a] transition-all hover:bg-rose-700 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none disabled:cursor-not-allowed disabled:opacity-60"
               type="submit"

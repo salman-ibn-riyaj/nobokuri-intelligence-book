@@ -11,7 +11,7 @@ import { wrap } from "./ui";
 /* ───────────── এখানে আপনার তথ্য বসান ───────────── */
 const FORMSPREE_URL = (process.env.FORMSPREE_URL as string) || ""; 
 const PIXEL_ID = (process.env.PIXEL_ID as string) || "";
-const IMAGE_SRC = "/Nobokuri Intelligence Book Showcase.png";
+const IMAGE_SRC = "/Kidz Zone Learning Adventure.png";
 
 const FEATURES = [
   { icon: "🔤", text: "বাংলা, ইংরেজি ও আরবি বর্ণমালা", bg: "bg-[#fff3c4]" },
@@ -72,19 +72,21 @@ export default function Nobokuri() {
           </div>
 
           <div className="relative aspect-square w-full max-w-[460px] justify-self-center">
-            <div className="hero-sun absolute inset-[7%] rounded-full border-2 border-slate-900 bg-amber-300 shadow-[6px_6px_0px_#0f172a] motion-safe:opacity-0" />
-            <Image
-              className="hero-img relative h-full w-full object-contain p-[6%] motion-safe:opacity-0"
-              src={IMAGE_SRC}
-              alt="নব কুঁড়ি ইন্টেলিজেন্স টকিং বুক"
-              width={800}
-              height={800}
-              priority
-            />
-            <span className="hero-sticker absolute top-[4%] right-0 rotate-8 rounded-xl border-2 border-slate-900 bg-rose-500 px-3.5 py-1 font-bold text-white shadow-[3px_3px_0px_#0f172a] motion-safe:opacity-0">
-              ৩+ বছর বয়সীদের জন্য
-            </span>
-          </div>
+  <div className="hero-sun absolute inset-[7%] rounded-full border-2 border-slate-900 bg-amber-300 shadow-[6px_6px_0px_#0f172a] motion-safe:opacity-0" />
+  <Image
+    className="hero-img relative h-full w-full object-contain object-center p-[4%] drop-shadow-[0_12px_18px_rgba(15,23,42,0.25)] motion-safe:opacity-0"
+    src={IMAGE_SRC}
+    alt="নব কুঁড়ি ইন্টেলিজেন্স টকিং বুক"
+    width={800}
+    height={800}
+    sizes="(min-width: 768px) 460px, (min-width: 480px) 420px, 90vw"
+    quality={90}
+    priority
+  />
+  <span className="hero-sticker absolute top-[4%] right-0 rotate-8 rounded-xl border-2 border-slate-900 bg-rose-500 px-3.5 py-1 font-bold text-white shadow-[3px_3px_0px_#0f172a] motion-safe:opacity-0">
+    ৩+ বছর বয়সীদের জন্য
+  </span>
+</div>
         </div>
       </section>
 
