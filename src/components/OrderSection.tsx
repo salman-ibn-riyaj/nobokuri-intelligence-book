@@ -225,7 +225,7 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
 
             <label className="mb-3.5 block font-semibold text-slate-900">
               আপনার নাম
-              <input className={field} value={form.name} onChange={setField("name")} autoComplete="name" placeholder="যেমন: রাহিমা আক্তার" />
+              <input className={field} value={form.name} onChange={setField("name")} autoComplete="name" placeholder="এখানে আপনার নাম লিখুন" />
               {errors.name && <span className="mt-[5px] block text-sm font-medium text-red-600">{errors.name}</span>}
             </label>
             <label className="mb-3.5 block font-semibold text-slate-900">
