@@ -4,7 +4,7 @@ import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { motion } from "motion/react";
 import { track } from "./pixel";
 import { baloo } from "./fonts";
-import { btnCoralBig, btnSun, field, wrap } from "./ui";
+import { field, wrap } from "./ui";
 
 /* ───────────── ডাটা ───────────── */
 const DELIVERY = { dhaka: 100, outside: 120 } as const;
@@ -44,11 +44,11 @@ const PACKAGES: Pkg[] = [
 ];
 
 /* ───────────── Helpers ───────────── */
-const BN = "০১২৩৪৫৬৭৮৯";
-const toBn = (n: number | string) => String(n).replace(/\d/g, (d) => BN[+d]);
+const BN = "০১২translateX৫৬৭৮৯";
+const toBn = (n: number | string) => String(n).replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[+d]);
 const normalizePhone = (v: string) =>
   v
-    .replace(/[০-৯]/g, (d) => String(BN.indexOf(d)))
+    .replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d)))
     .replace(/[\s-]/g, "")
     .replace(/^(\+?88)/, "");
 
@@ -127,12 +127,12 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
   };
 
   return (
-    <section id="order" className="scroll-mt-[62px] border-t-2 border-ink bg-sky pt-12 pb-14 md:pt-16 md:pb-20">
+    <section id="order" className="scroll-mt-[62px] border-t-2 border-slate-900 bg-sky-50 pt-12 pb-14 md:pt-16 md:pb-20">
       <div className={wrap}>
-        <h2 className={`${baloo.className} text-[clamp(26px,4.5vw,40px)] leading-tight font-extrabold`}>
+        <h2 className={`${baloo.className} text-[clamp(26px,4.5vw,40px)] leading-tight font-extrabold text-slate-900`}>
           📩 আপনার সন্তানের জন্য এখনই অর্ডার করুন
         </h2>
-        <p className="mt-1.5 text-mut">প্যাকেজ বেছে নিন, তথ্য দিন — ক্যাশ অন ডেলিভারিতে পণ্য হাতে পেয়ে টাকা দিন।</p>
+        <p className="mt-1.5 text-slate-600">প্যাকেজ বেছে নিন, তথ্য দিন — ক্যাশ অন ডেলিভারিতে পণ্য হাতে পেয়ে টাকা দিন।</p>
 
         <div className="mt-[30px] mb-[26px] grid gap-[22px] md:grid-cols-2" role="radiogroup" aria-label="প্যাকেজ">
           {PACKAGES.map((p) => {
@@ -143,7 +143,7 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                 type="button"
                 role="radio"
                 aria-checked={active}
-                className="relative cursor-pointer rounded-[18px] border-2 border-ink bg-white p-[22px] text-left shadow-hard-md focus-visible:outline-[3px] focus-visible:outline-offset-[10px] focus-visible:outline-coral"
+                className="relative cursor-pointer rounded-[18px] border-2 border-slate-900 bg-white p-[22px] text-left shadow-[4px_4px_0px_#0f172a] focus-visible:outline-[3px] focus-visible:outline-offset-[10px] focus-visible:outline-rose-500"
                 onClick={() => setPkgId(p.id)}
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.98 }}
@@ -151,12 +151,12 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                 {active && (
                   <motion.span
                     layoutId="pkg-ring"
-                    className="pointer-events-none absolute -inset-2 rounded-3xl border-4 border-coral"
+                    className="pointer-events-none absolute -inset-2 rounded-3xl border-4 border-rose-500"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
                 
-                {/* প্যাকেজের নাম এবং সেরা অফার ট্যাগ */}
+                {/* প্যাকেজের নাম এবং সেরা অফার ট্যাগ (সঠিক ভিজিবিলিটি সহ) */}
                 <div className="flex items-center justify-between gap-2">
                   <h3 className={`${baloo.className} text-[22px] leading-tight font-extrabold text-slate-900`}>{p.name}</h3>
                   {p.badge && (
@@ -166,10 +166,10 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                   )}
                 </div>
 
-                <div className={`${baloo.className} mt-1 text-[40px] leading-tight font-extrabold text-coral`}>৳{toBn(p.price)}/-</div>
+                <div className={`${baloo.className} mt-1 text-[40px] leading-tight font-extrabold text-rose-600`}>৳{toBn(p.price)}/-</div>
                 <ul className="mt-2.5 grid gap-1.5">
                   {p.items.map((it) => (
-                    <li key={it} className="flex gap-2 text-slate-800 before:font-extrabold before:text-mint before:content-['✓']">
+                    <li key={it} className="flex gap-2 text-slate-800 before:font-extrabold before:text-emerald-600 before:content-['✓']">
                       {it}
                     </li>
                   ))}
@@ -180,13 +180,13 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
         </div>
 
         <form
-          className="grid gap-[30px] rounded-[20px] border-2 border-ink bg-white p-[26px] shadow-hard-lg md:grid-cols-[1.2fr_.8fr]"
+          className="grid gap-[30px] rounded-[20px] border-2 border-slate-900 bg-white p-[26px] shadow-[6px_6px_0px_#0f172a] md:grid-cols-[1.2fr_.8fr]"
           onSubmit={onSubmit}
           onFocusCapture={onFormFocus}
           noValidate
         >
           <div>
-            <p className="mb-2 font-bold">ডেলিভারি এলাকা</p>
+            <p className="mb-2 font-bold text-slate-900">ডেলিভারি এলাকা</p>
             
             {/* প্রফেশনাল ও ইউজার ফ্রেন্ডলি রেডিও বাটন কার্ড ডিজাইন */}
             <div className="mb-5 grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-label="ডেলিভারি এলাকা">
@@ -198,8 +198,8 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                     onClick={() => setArea(a)}
                     className={`flex cursor-pointer items-center justify-between rounded-xl border-2 p-3.5 transition-all ${
                       isSelected
-                        ? "border-ink bg-amber-50 shadow-[3px_3px_0px_#0f172a]"
-                        : "border-slate-300 bg-paper hover:border-slate-400"
+                        ? "border-slate-900 bg-amber-50 shadow-[3px_3px_0px_#0f172a]"
+                        : "border-slate-300 bg-slate-50 hover:border-slate-400"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -209,13 +209,13 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                         value={a}
                         checked={isSelected}
                         onChange={() => setArea(a)}
-                        className="h-4 w-4 accent-coral cursor-pointer"
+                        className="h-4 w-4 accent-rose-600 cursor-pointer"
                       />
-                      <span className="font-semibold text-ink text-sm sm:text-base">
+                      <span className="font-semibold text-slate-900 text-sm sm:text-base">
                         {a === "dhaka" ? "ঢাকার ভেতরে" : "ঢাকার বাইরে"}
                       </span>
                     </div>
-                    <span className="font-bold text-coral text-sm sm:text-base">
+                    <span className="font-bold text-rose-600 text-sm sm:text-base">
                       ৳{toBn(DELIVERY[a])}
                     </span>
                   </label>
@@ -223,12 +223,12 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
               })}
             </div>
 
-            <label className="mb-3.5 block font-semibold">
+            <label className="mb-3.5 block font-semibold text-slate-900">
               আপনার নাম
-              <input className={field} value={form.name} onChange={setField("name")} autoComplete="name" placeholder="এখানে আপনার নাম লিখুন" />
-              {errors.name && <span className="mt-[5px] block text-sm font-medium text-[#c62828]">{errors.name}</span>}
+              <input className={field} value={form.name} onChange={setField("name")} autoComplete="name" placeholder="যেমন: রাহিমা আক্তার" />
+              {errors.name && <span className="mt-[5px] block text-sm font-medium text-red-600">{errors.name}</span>}
             </label>
-            <label className="mb-3.5 block font-semibold">
+            <label className="mb-3.5 block font-semibold text-slate-900">
               মোবাইল নম্বর
               <input
                 className={field}
@@ -239,9 +239,9 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                 autoComplete="tel"
                 placeholder="01XXXXXXXXX"
               />
-              {errors.phone && <span className="mt-[5px] block text-sm font-medium text-[#c62828]">{errors.phone}</span>}
+              {errors.phone && <span className="mt-[5px] block text-sm font-medium text-red-600">{errors.phone}</span>}
             </label>
-            <label className="mb-3.5 block font-semibold">
+            <label className="mb-3.5 block font-semibold text-slate-900">
               পূর্ণ ঠিকানা
               <textarea
                 className={`${field} resize-y`}
@@ -251,25 +251,25 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
                 autoComplete="street-address"
                 placeholder="বাসা/রোড, এলাকা, থানা, জেলা"
               />
-              {errors.address && <span className="mt-[5px] block text-sm font-medium text-[#c62828]">{errors.address}</span>}
+              {errors.address && <span className="mt-[5px] block text-sm font-medium text-red-600">{errors.address}</span>}
             </label>
           </div>
 
-          <div className="self-start rounded-2xl border-2 border-dashed border-ink bg-paper p-5">
-            <h3 className={`${baloo.className} mb-2 text-[22px] leading-tight font-extrabold`}>অর্ডার সামারি</h3>
-            <div className="flex items-center justify-between py-1.5">
+          <div className="self-start rounded-2xl border-2 border-dashed border-slate-900 bg-slate-50 p-5">
+            <h3 className={`${baloo.className} mb-2 text-[22px] leading-tight font-extrabold text-slate-900`}>অর্ডার সামারি</h3>
+            <div className="flex items-center justify-between py-1.5 text-slate-800">
               <span>{pkg.name}</span>
               <motion.b key={pkg.price} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
                 ৳{toBn(pkg.price)}
               </motion.b>
             </div>
-            <div className="flex items-center justify-between py-1.5">
+            <div className="flex items-center justify-between py-1.5 text-slate-800">
               <span>ডেলিভারি চার্জ</span>
               <motion.b key={delivery} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
                 ৳{toBn(delivery)}
               </motion.b>
             </div>
-            <div className="mt-2 flex items-center justify-between border-t-2 border-ink pt-3 pb-1.5 text-[23px] font-extrabold">
+            <div className="mt-2 flex items-center justify-between border-t-2 border-slate-900 pt-3 pb-1.5 text-[23px] font-extrabold text-slate-900">
               <span>সর্বমোট</span>
               <motion.b
                 key={total}
@@ -281,31 +281,45 @@ export default function OrderSection({ formUrl }: { formUrl: string }) {
               </motion.b>
             </div>
 
-            <button className={`${btnCoralBig} mt-[18px] w-full`} type="submit" disabled={status === "loading"}>
-              {status === "loading" ? "পাঠানো হচ্ছে…" : "অর্ডার কনফার্ম করুন"}
+            {/* দৃশ্যমান এবং আকর্ষণীয় সাবমিট বাটন */}
+            <button
+              className="mt-[18px] flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-slate-900 bg-rose-600 px-6 py-4 text-lg font-extrabold text-white shadow-[4px_4px_0px_#0f172a] transition-all hover:bg-rose-700 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none disabled:cursor-not-allowed disabled:opacity-60"
+              type="submit"
+              disabled={status === "loading"}
+            >
+              {status === "loading" ? "পাঠানো হচ্ছে…" : "অর্ডার কনফার্ম করুন 🛒"}
             </button>
+            
             {status === "error" && (
-              <p className="mt-[5px] block text-sm font-medium text-[#c62828]" role="alert">
-                অর্ডার পাঠানো যায়নি। ইন্টারনেট দেখে আবার চেষ্টা করুন।
+              <p className="mt-[5px] block text-sm font-medium text-red-600" role="alert">
+                অর্ডার পাঠানো যায়নি। ইন্টারনেট কানেকশন চেক করে আবার চেষ্টা করুন।
               </p>
             )}
-            <p className="mt-3 text-center text-sm text-mut">🚚 ক্যাশ অন ডেলিভারি — পণ্য হাতে পেয়ে টাকা দিন</p>
+            <p className="mt-3 text-center text-sm text-slate-600">🚚 ক্যাশ অন ডেলিভারি — পণ্য হাতে পেয়ে টাকা দিন</p>
           </div>
         </form>
       </div>
 
       {status === "done" && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/60 p-5" role="dialog" aria-modal="true" aria-label="অর্ডার সম্পন্ন">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-slate-900/60 p-5" role="dialog" aria-modal="true" aria-label="অর্ডার সম্পন্ন">
           <motion.div
-            className="max-w-[420px] rounded-[22px] border-2 border-ink bg-white p-[30px] text-center shadow-hard-xl"
+            className="max-w-[420px] rounded-[22px] border-2 border-slate-900 bg-white p-[30px] text-center shadow-[8px_8px_0px_#0f172a]"
             initial={{ scale: 0.7, opacity: 0, y: 30 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <div className="mb-2 text-4xl leading-none">🎉</div>
-            <h3 className={`${baloo.className} mb-1.5 text-[26px] leading-tight font-extrabold`}>অর্ডার পেয়েছি, ধন্যবাদ!</h3>
-            <p className="mb-5 text-mut">আমরা শীঘ্রই আপনাকে ফোন করে অর্ডারটি কনফার্ম করব।</p>
-            <button className={btnSun} onClick={closeDone}>ঠিক আছে</button>
+            <h3 className={`${baloo.className} mb-1.5 text-[26px] leading-tight font-extrabold text-slate-900`}>অর্ডার পেয়েছি, ধন্যবাদ!</h3>
+            <p className="mb-5 text-slate-600">আমরা শীঘ্রই আপনাকে ফোন করে অর্ডারটি কনফার্ম করব।</p>
+            
+            {/* পপ-আপের দৃশ্যমান ঠিক আছে বাটন */}
+            <button
+              type="button"
+              className="inline-flex cursor-pointer items-center justify-center rounded-xl border-2 border-slate-900 bg-amber-400 px-8 py-3 text-base font-extrabold text-slate-900 shadow-[3px_3px_0px_#0f172a] transition-all hover:bg-amber-300 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+              onClick={closeDone}
+            >
+              ঠিক আছে
+            </button>
           </motion.div>
         </div>
       )}
